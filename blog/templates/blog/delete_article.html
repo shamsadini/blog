@@ -1,0 +1,13 @@
+{% extends 'blog/base.html' %}
+
+{% block title %}حذف مقاله{% endblock %}
+
+{% block content %}
+    <h1>حذف مقاله</h1>
+    <p>آیا مطمئن هستید که می‌خواهید مقاله "{{ article.title }}" را حذف کنید؟</p>
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">بله، حذف کن</button>
+        <a href="{% url 'home' %}" class="btn btn-secondary">انصراف</a>
+    </form>
+{% endblock %}

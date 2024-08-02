@@ -1,0 +1,15 @@
+<!-- blog/templates/registration/login.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>ورود</title>
+</head>
+<body>
+    <h1>ورود</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">ورود</button>
+    </form>
+</body>
+</html>

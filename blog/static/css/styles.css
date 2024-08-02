@@ -1,0 +1,39 @@
+.card-img-top {
+    height: 200px;
+    object-fit: cover;
+}
+
+.card-title a {
+    text-decoration: none;
+    color: #000;
+}
+
+.card-title a:hover {
+    color: #007bff;
+}
+
+.card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.views-count {
+    display: flex;
+    align-items: center;
+}
+
+.views-count i {
+    margin-left: 5px;
+}
+
+body {
+    font-family: 'Vazir', sans-serif;
+    direction: rtl;
+    text-align: right;
+}
+
+.container {
+    direction: rtl;
+    text-align: right;
+}

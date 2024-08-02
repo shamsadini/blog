@@ -1,0 +1,44 @@
+{% extends 'blog/base.html' %}
+{% load custom_filters %}
+{% block title %}صفحه اصلی{% endblock %}
+
+{% block content %}
+    <div class="container mt-4">
+        <h1 class="mb-4">آخرین مقالات</h1>
+        <div class="row">
+            {% for article in articles %}
+                <div class="col-md-4">
+                    <div class="card mb-4 shadow-sm">
+                        {% if article.image %}
+                            <img src="{{ article.image.url }}" class="card-img-top" alt="{{ article.title }}">
+                        {% endif %}
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                <a href="{% url 'article_detail' article.id %}">{{ article.title }}</a>
+                            </h5>
+                            <p class="card-text">{{ article.content|truncatewords:30 }}</p>
+                            <p class="card-text">
+                                <small class="text-muted">نویسنده: {{ article.author.username }} | تاریخ انتشار: {{ article.created_at|to_jalali }}</small>
+                            </p>
+                        </div>
+                        <div class="card-footer">
+                            <div class="views-count">
+                                <i class="fas fa-eye"></i>
+                                <span>{{ article.views }}</span>
+                            </div>
+                            <div class="btn-group">
+                                <a href="{% url 'article_detail' article.id %}" class="btn btn-sm btn-outline-secondary">مشاهده جزئیات</a>
+                                {% if user == article.author %}
+                                    <a href="{% url 'edit_article' article.id %}" class="btn btn-sm btn-outline-primary">ویرایش</a>
+                                    <a href="{% url 'delete_article' article.id %}" class="btn btn-sm btn-outline-danger">حذف</a>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% empty %}
+                <p>هنوز مقاله‌ای منتشر نشده است.</p>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

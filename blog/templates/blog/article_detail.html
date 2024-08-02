@@ -1,0 +1,56 @@
+{% extends 'blog/base.html' %}
+{% load custom_filters %}
+
+{% block title %}جزئیات مقاله{% endblock %}
+
+{% block content %}
+    <div class="container mt-4" style="direction: rtl; text-align: right;">
+        <div class="row">
+            <!-- بخش نمایش مقاله -->
+            <div class="col-md-8">
+                <h1>{{ article.title }}</h1>
+                <div class="d-flex align-items-center text-muted mb-3">
+                    <p class="me-3 mb-0">نویسنده: {{ article.author.username }}</p>
+                   
+                    <p class="mx-3 mb-0">تاریخ انتشار: {{ article.created_at|to_jalali }}</p>
+                    
+                    <p class="ms-3 mb-0">تعداد بازدیدها: {{ article.views }}</p>
+                </div>
+                <div>
+                    {{ article.content|safe }}
+                </div>
+                {% if article.image %}
+                    <img src="{{ article.image.url }}" class="img-fluid mt-3" alt="{{ article.title }}">
+                {% endif %}
+                <a href="{% url 'home' %}" class="btn btn-secondary mt-3">
+                    <i class="fas fa-arrow-left"></i> بازگشت به صفحه اصلی
+                </a>
+            </div>
+
+            <!-- بخش نمایش آخرین مقالات -->
+            <div class="col-md-4">
+                <h3>آخرین مقالات</h3>
+                <ul class="list-group">
+                    {% for recent_article in recent_articles %}
+                        <li class="list-group-item d-flex align-items-center">
+                            {% if recent_article.image %}
+                                <img src="{{ recent_article.image.url }}" class="img-thumbnail ms-2" alt="{{ recent_article.title }}" style="width: 50px; height: 50px; object-fit: cover;">
+                            {% endif %}
+                            <div class="d-flex flex-grow-1 justify-content-between">
+                                <div class="flex-grow-1">
+                                    <a href="{% url 'article_detail' recent_article.id %}">{{ recent_article.title }}</a>
+                                    <small class="text-muted d-block">تاریخ: {{ recent_article.created_at|to_jalali }}</small>
+                                </div>
+                                <div class="flex-shrink-0 ms-2">
+                                    <a href="{% url 'article_detail' recent_article.id %}" class="btn btn-outline-primary">
+                                        <i class="fas fa-arrow-left"></i> <!-- آیکون فلش به سمت چپ -->
+                                    </a>
+                                </div>
+                            </div>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+{% endblock %}

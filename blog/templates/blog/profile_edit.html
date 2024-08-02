@@ -1,0 +1,63 @@
+{% extends 'blog/base.html' %}
+
+{% block title %}ویرایش پروفایل{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1 class="mb-4">ویرایش پروفایل</h1>
+
+    <!-- فرم تغییر نام کاربری و ایمیل -->
+    <div class="card mb-4">
+        <div class="card-header">
+            <h5 class="card-title">تغییر نام کاربری و ایمیل</h5>
+        </div>
+        <div class="card-body">
+            <form method="POST" action="{% url 'profile_edit' %}">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <label for="id_username" class="form-label">نام کاربری</label>
+                    {{ user_form.username }}
+                </div>
+                <div class="mb-3">
+                    <label for="id_email" class="form-label">ایمیل</label>
+                    {{ user_form.email }}
+                </div>
+                <div class="mb-3">
+                    <label for="id_first_name" class="form-label">نام</label>
+                    {{ user_form.first_name }}
+                </div>
+                <div class="mb-3">
+                    <label for="id_last_name" class="form-label">نام خانوادگی</label>
+                    {{ user_form.last_name }}
+                </div>
+                <button type="submit" name="change_user_info" class="btn btn-primary">ذخیره تغییرات پروفایل</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- فرم تغییر رمز عبور -->
+    <div class="card">
+        <div class="card-header">
+            <h5 class="card-title">تغییر رمز عبور</h5>
+        </div>
+        <div class="card-body">
+            <form method="POST" action="{% url 'profile_edit' %}">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <label for="id_old_password" class="form-label">رمز عبور فعلی</label>
+                    {{ password_form.old_password }}
+                </div>
+                <div class="mb-3">
+                    <label for="id_new_password1" class="form-label">رمز عبور جدید</label>
+                    {{ password_form.new_password1 }}
+                </div>
+                <div class="mb-3">
+                    <label for="id_new_password2" class="form-label">تکرار رمز عبور جدید</label>
+                    {{ password_form.new_password2 }}
+                </div>
+                <button type="submit" name="change_password" class="btn btn-success">تغییر رمز عبور</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
